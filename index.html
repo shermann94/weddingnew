@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<!-- Page title shown in browser tab -->
+<title>Wedding AI Game</title>
+
+<!-- Main styling -->
+<link rel="stylesheet" href="style.css">
+
+<!-- Supabase client library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+</head>
+
+<body>
+
+<!-- JOIN SCREEN -->
+<!-- Guests see this first when they scan the QR code -->
+
+<div id="joinScreen">
+
+<h1>Wedding AI Game 🎉</h1>
+
+<!-- Player name input -->
+<input id="nameInput" placeholder="Your Name">
+
+<!-- Table number input -->
+<input id="tableInput" placeholder="Table Number">
+
+<!-- Join button -->
+<button id="joinBtn">Join Game</button>
+
+</div>
+
+
+<!-- GAME SCREEN -->
+<!-- Hidden initially until player joins -->
+
+<div id="gameScreen" style="display:none">
+
+<!-- Scenario text appears here -->
+<h2 id="scenario"></h2>
+
+<!-- Countdown timer -->
+<div id="timer"></div>
+
+<!-- Answer input box -->
+<textarea id="answerBox" placeholder="Type your answer"></textarea>
+
+<!-- Submit button -->
+<button id="submitBtn">Submit Answer</button>
+
+<!-- Status messages (submitted, waiting etc.) -->
+<div id="statusMsg"></div>
+
+</div>
+
+
+<!-- Supabase connection -->
+<script src="supabase.js"></script>
+
+<!-- Player game logic -->
+<script src="player.js"></script>
+
+</body>
+
+</html>

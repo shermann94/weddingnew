@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<!-- Title -->
+<title>Wedding AI Game Host</title>
+
+<!-- Styles -->
+<link rel="stylesheet" href="style.css">
+
+<!-- Supabase client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+</head>
+
+<body>
+
+<h1>Wedding AI Game 🎉</h1>
+
+<!-- Current scenario shown on big screen -->
+<h2 id="scenario"></h2>
+
+<!-- Answer counter -->
+<div id="counter">Answers: 0</div>
+
+<!-- Timer display -->
+<div id="timer"></div>
+
+<!-- Host controls -->
+
+<button id="startBtn">Start Game</button>
+
+<button id="evaluateBtn">Evaluate AI</button>
+
+<button id="nextBtn">Next Round</button>
+
+<!-- AI results appear here -->
+<div id="results"></div>
+
+<script src="supabase.js"></script>
+
+<script src="host.js"></script>
+
+</body>
+
+</html>
