@@ -12,7 +12,7 @@ const counter = document.getElementById("counter")
 // Load scenario text
 async function loadScenario(){
 
- const {data} = await supabase
+ const {data} = await supabaseClient
  .from("scenarios")
  .select("*")
  .eq("round_number",currentRound)
@@ -31,7 +31,7 @@ document.getElementById("startBtn").onclick = async ()=>{
  answerCount = 0
  counter.innerText="Answers: 0"
 
- await supabase
+ await supabaseClient
  .from("game_sessions")
  .update({
 
@@ -55,7 +55,7 @@ document.getElementById("nextBtn").onclick = async ()=>{
 
  if(currentRound>3){
 
-  await supabase
+  await supabaseClient
   .from("game_sessions")
   .update({status:"finished"})
 
@@ -68,7 +68,7 @@ document.getElementById("nextBtn").onclick = async ()=>{
  answerCount=0
  counter.innerText="Answers: 0"
 
- await supabase
+ await supabaseClient
  .from("game_sessions")
  .update({
 
@@ -84,7 +84,7 @@ document.getElementById("nextBtn").onclick = async ()=>{
 
 
 // Realtime answer listener
-supabase
+supabaseClient
 .channel("answers")
 .on(
  "postgres_changes",
@@ -113,14 +113,14 @@ supabase
 document.getElementById("evaluateBtn").onclick = async ()=>{
 
  // Get scenario
- const {data:scenario} = await supabase
+ const {data:scenario} = await supabaseClient
  .from("scenarios")
  .select("*")
  .eq("round_number",currentRound)
  .single()
 
  // Get answers
- const {data:answers} = await supabase
+ const {data:answers} = await supabaseClient
  .from("answers")
  .select(`
  answer_text,
@@ -138,17 +138,17 @@ document.getElementById("evaluateBtn").onclick = async ()=>{
  }))
 
 
- // Call Supabase edge function
+ // Call supabaseClient edge function
  const res = await fetch(
 
- `${SUPABASE_URL}/functions/v1/judge-round`,
+ `${supabaseClient_URL}/functions/v1/judge-round`,
  {
 
   method:"POST",
 
   headers:{
    "Content-Type":"application/json",
-   "Authorization":"Bearer "+SUPABASE_KEY
+   "Authorization":"Bearer "+supabaseClient_KEY
   },
 
   body:JSON.stringify({
@@ -169,7 +169,7 @@ document.getElementById("evaluateBtn").onclick = async ()=>{
 
 
  // Save AI results
- await supabase
+ await supabaseClient
  .from("round_results")
  .insert({
 
@@ -183,7 +183,7 @@ document.getElementById("evaluateBtn").onclick = async ()=>{
 
 
  // Move game state to revealing
- await supabase
+ await supabaseClient
  .from("game_sessions")
  .update({status:"revealing"})
 
@@ -191,7 +191,7 @@ document.getElementById("evaluateBtn").onclick = async ()=>{
 
 
 // Realtime results listener
-supabase
+supabaseClient
 .channel("results")
 .on(
  "postgres_changes",
