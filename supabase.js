@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 // Create Supabase client instance
 // This allows the frontend to talk to Supabase
-const supabase = window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY
+window.supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
 )
