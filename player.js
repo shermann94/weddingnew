@@ -30,27 +30,32 @@ if(playerId){
 // Join game button
 document.getElementById("joinBtn").onclick = async ()=>{
 
- // Get player input
- const name=document.getElementById("nameInput").value
- const table=document.getElementById("tableInput").value
+ const code = document.getElementById("codeInput").value
+ const name = document.getElementById("nameInput").value
+ const table = document.getElementById("tableInput").value
 
- // Insert player record in database
- const {data}=await supabaseClient
+ // Simple game code check
+ if(code !== "LOVE2026"){
+
+   alert("Invalid Game Code")
+   return
+
+ }
+
+ const {data} = await supabaseClient
  .from("players")
  .insert({
-  name:name,
-  table_number:table,
-  created_at:new Date()
+   name:name,
+   table_number:table,
+   created_at:new Date()
  })
  .select()
  .single()
 
- // Save player id locally
- playerId=data.id
+ playerId = data.id
 
  localStorage.setItem("player_id",playerId)
 
- // Switch UI from join screen to game screen
  joinScreen.style.display="none"
  gameScreen.style.display="block"
 
