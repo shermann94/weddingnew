@@ -26,24 +26,21 @@ async function loadScenario(){
 // Start game button
 document.getElementById("startBtn").onclick = async ()=>{
 
- const endTime = new Date(Date.now()+60000)
+ const endTime = new Date(Date.now() + 60000)
 
- answerCount = 0
- counter.innerText="Answers: 0"
+ const { data } = await supabaseClient
+  .from("game_sessions")
+  .select("*")
+  .single()
 
  await supabaseClient
- .from("game_sessions")
- .update({
-
-  status:"playing",
-  current_round:1,
-  round_end_time:endTime
-
- })
-
- currentRound = 1
-
- loadScenario()
+  .from("game_sessions")
+  .update({
+   status: "playing",
+   current_round: 1,
+   round_end_time: endTime
+  })
+  .eq("id", data.id)
 
 }
 
