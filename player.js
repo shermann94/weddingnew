@@ -35,7 +35,7 @@ document.getElementById("joinBtn").onclick = async ()=>{
  const table=document.getElementById("tableInput").value
 
  // Insert player record in database
- const {data}=await supabase
+ const {data}=await supabaseClient
  .from("players")
  .insert({
   name:name,
@@ -61,7 +61,7 @@ document.getElementById("joinBtn").onclick = async ()=>{
 submitBtn.onclick = async ()=>{
 
  // Insert answer into database
- await supabase
+ await supabaseClient
  .from("answers")
  .insert({
 
@@ -101,7 +101,7 @@ function disableInput(){
 // Load scenario from database
 async function loadScenario(round){
 
- const {data}=await supabase
+ const {data}=await supabaseClient
  .from("scenarios")
  .select("*")
  .eq("round_number",round)
@@ -175,7 +175,7 @@ function handleSession(session){
 
 
 // Realtime listener for game state updates
-supabase
+supabaseClient
 .channel("session")
 .on(
  "postgres_changes",
